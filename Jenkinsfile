@@ -7,7 +7,7 @@ metadata:
   name: kaniko
 spec:
   containers:
-  - name: docker
+  - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
     imagePullPolicy: "IfNotPresent"
     command:
