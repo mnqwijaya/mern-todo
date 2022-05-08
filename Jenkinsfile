@@ -13,6 +13,10 @@ spec:
     command:
     - cat
     tty: true
+    volumeMounts:
+    - mountPath: "/kaniko/.docker"
+      name: "volume-1"
+      readOnly: false
   - image: "jenkins/inbound-agent:4.10-3"
     name: "jnlp"
     resources:
@@ -21,6 +25,10 @@ spec:
         memory: "256Mi"
         cpu: "100m"
   restartPolicy: "Never"
+  volumes:
+  - configMap:
+      name: "docker-config"
+    name: "volume-1"
 ''' ) {
     node(POD_LABEL) {
         stage('Checkout'){
@@ -46,7 +54,7 @@ spec:
             container('kaniko') {
                 script {
                     sh """
-                        /kaniko/executor --context frontend/ --no-push
+                        /kaniko/executor --context frontend/ --destination ariretiarno/bp-cilsy-14:frontend-${BUILD_NUMBER}
                     """
                 }
             }
@@ -56,7 +64,7 @@ spec:
             container('kaniko') {
                 script {
                     sh """
-                        /kaniko/executor --context backend/ --no-push
+                        /kaniko/executor --context backend/ --destination ariretiarno/bp-cilsy-14:backend-${BUILD_NUMBER}
                     """
                 }
             }
