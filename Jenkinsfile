@@ -24,8 +24,21 @@ spec:
       requests:
         memory: "256Mi"
         cpu: "100m"
+  - name: deploy
+    image: ariretiarno/bp-cilsy-14:deploy
+    imagePullPolicy: "IfNotPresent"
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - mountPath: "/root/.aws"
+      name: "volume-0"
+      readOnly: false
   restartPolicy: "Never"
   volumes:
+  - secret:
+      secretName: "aws-config"
+    name: "volume-0"
   - configMap:
       name: "docker-config"
     name: "volume-1"
@@ -56,6 +69,21 @@ spec:
                     sh """
                         /kaniko/executor --context frontend/ --destination ariretiarno/bp-cilsy-14:frontend-${BUILD_NUMBER}
                         /kaniko/executor --context backend/ --destination ariretiarno/bp-cilsy-14:backend-${BUILD_NUMBER}
+                    """
+                }
+            }
+        }
+
+        stage ('Deploy') {
+            container('deploy') {
+                script {
+                    sh """
+                    export KOPS_STATE_STORE=s3://kube.retiarno.my.id && export KOPS_CLUSTER_NAME=kube.retiarno.my.id
+                    kops export kubecfg --admin
+                    sed -i -e 's/BUILDID/${BUILDNUMBER}/g' frontend/manifest.yaml
+                    sed -i -e 's/BUILDID/${BUILDNUMBER}/g' frontend/manifest.yaml
+                    kubectl apply -f frontend/manifest.yaml
+                    kubectl apply -f backend/manifest.yaml
                     """
                 }
             }
