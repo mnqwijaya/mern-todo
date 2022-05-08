@@ -51,7 +51,7 @@ export default class CreateTodo extends Component {
             todo_completed: this.state.todo_completed
         };
 
-        axios.post('http://13.229.224.1:4000/todos/add', newTodo)
+        axios.post('http://backend.kube.retiarno.my.id/todos/add', newTodo)
             .then(res => console.log(res.data));
 
         this.setState({
