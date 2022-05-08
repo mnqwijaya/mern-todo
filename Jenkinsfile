@@ -46,7 +46,7 @@ spec:
             container('kaniko') {
                 script {
                     sh """
-                        /kaniko/executor --context `frontend/` --no-push
+                        /kaniko/executor --context frontend/ --no-push
                     """
                 }
             }
@@ -56,7 +56,7 @@ spec:
             container('kaniko') {
                 script {
                     sh """
-                        /kaniko/executor --context `backend/` --no-push
+                        /kaniko/executor --context backend/ --no-push
                     """
                 }
             }
