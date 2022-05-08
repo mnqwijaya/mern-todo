@@ -50,20 +50,11 @@ spec:
                 userRemoteConfigs: scm.userRemoteConfigs
             ])
         }
-        stage ('Build FE') {
+        stage ('Build') {
             container('kaniko') {
                 script {
                     sh """
                         /kaniko/executor --context frontend/ --destination ariretiarno/bp-cilsy-14:frontend-${BUILD_NUMBER}
-                    """
-                }
-            }
-        }
-
-        stage ('Build BE') {
-            container('kaniko') {
-                script {
-                    sh """
                         /kaniko/executor --context backend/ --destination ariretiarno/bp-cilsy-14:backend-${BUILD_NUMBER}
                     """
                 }
