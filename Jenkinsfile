@@ -63,7 +63,7 @@ spec:
                 userRemoteConfigs: scm.userRemoteConfigs
             ])
         }
-        stage ('Build') {
+        /*stage ('Build') {
             container('kaniko') {
                 script {
                     sh """
@@ -72,7 +72,7 @@ spec:
                     """
                 }
             }
-        }
+        }*/
 
         stage ('Deploy') {
             container('deploy') {
@@ -80,8 +80,10 @@ spec:
                     sh """
                     export KOPS_STATE_STORE=s3://kube.retiarno.my.id && export KOPS_CLUSTER_NAME=kube.retiarno.my.id
                     kops export kubecfg --admin
+                    pwd
+                    ls -lah
                     sed -i -e 's/BUILDID/${BUILD_NUMBER}/g' frontend/manifest.yaml
-                    sed -i -e 's/BUILDID/${BUILD_NUMBER}/g' frontend/manifest.yaml
+                    sed -i -e 's/BUILDID/${BUILD_NUMBER}/g' backend/manifest.yaml
                     kubectl apply -f frontend/manifest.yaml
                     kubectl apply -f backend/manifest.yaml
                     """
