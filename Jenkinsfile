@@ -82,8 +82,8 @@ spec:
                     kops export kubecfg --admin
                     sed -i -e 's/BUILDID/${BUILD_NUMBER}/g' frontend/frontend.yaml
                     sed -i -e 's/BUILDID/${BUILD_NUMBER}/g' backend/backend.yaml
-                    kubectl apply -f frontend/manifest.yaml
-                    kubectl apply -f backend/manifest.yaml
+                    kubectl apply -f frontend/frontend.yaml
+                    kubectl apply -f backend/backend.yaml
                     """
                 }
             }
