@@ -42,5 +42,14 @@ spec:
                 userRemoteConfigs: scm.userRemoteConfigs
             ])
         }
+        stage ('Build') {
+            container('kaniko') {
+                script {
+                    sh """
+                        /kaniko/executor --context `pwd` --no-push
+                    """
+                }
+            }
+        }
     }
 }
