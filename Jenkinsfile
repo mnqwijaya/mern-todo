@@ -24,9 +24,23 @@ spec:
 ''' ) {
     node(POD_LABEL) {
         stage('Checkout'){
-            steps {
-                checkout scm
-            }
+            def scmVars = checkout([
+                $class: 'GitSCM',
+                branches: scm.branches,
+                extensions: scm.extensions + [
+                    [
+                        $class: 'AuthorInChangelog'
+                    ],
+                    [
+                        $class: 'ChangelogToBranch',
+                        options: [
+                            compareRemote: 'origin',
+                            compareTarget: 'main'
+                        ]
+                    ]
+                ],
+                userRemoteConfigs: scm.userRemoteConfigs
+            ])
         }
     }
 }
