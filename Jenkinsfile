@@ -80,8 +80,8 @@ spec:
                     sh """
                     export KOPS_STATE_STORE=s3://kube.retiarno.my.id && export KOPS_CLUSTER_NAME=kube.retiarno.my.id
                     kops export kubecfg --admin
-                    sed -i -e 's/BUILDID/${BUILDNUMBER}/g' frontend/manifest.yaml
-                    sed -i -e 's/BUILDID/${BUILDNUMBER}/g' frontend/manifest.yaml
+                    sed -i -e 's/BUILDID/${BUILD_NUMBER}/g' frontend/manifest.yaml
+                    sed -i -e 's/BUILDID/${BUILD_NUMBER}/g' frontend/manifest.yaml
                     kubectl apply -f frontend/manifest.yaml
                     kubectl apply -f backend/manifest.yaml
                     """
