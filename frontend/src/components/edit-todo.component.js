@@ -21,7 +21,7 @@ export default class EditTodo extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://backend.kube.retiarno.my.id/todos/'+this.props.match.params.id)
+        axios.get('http://backend.k8bp.qomari.my.id/todos/'+this.props.match.params.id)
             .then(response => {
                 this.setState({
                     todo_description: response.data.todo_description,
@@ -68,7 +68,7 @@ export default class EditTodo extends Component {
             todo_completed: this.state.todo_completed
         };
         console.log(obj);
-        axios.post('http://backend.kube.retiarno.my.id/todos/update/'+this.props.match.params.id, obj)
+        axios.post('http://backend.k8bp.qomari.my.id/todos/update/'+this.props.match.params.id, obj)
             .then(res => console.log(res.data));
         
         this.props.history.push('/');
