@@ -68,8 +68,8 @@ spec:
                 script {
                     if (env.BRANCH_NAME == 'staging'){
                         sh """
-                        /kaniko/executor --context frontend/ --destination mnqwijaya/mern-todo:frontend-${BUILD_NUMBER}
-                        /kaniko/executor --context backend/ --destination mnqwijaya/mern-todo:backend-${BUILD_NUMBER}
+                        /kaniko/executor --context frontend/ --destination mnqwijaya/mern_todo_client:v1-${BUILD_NUMBER}
+                        /kaniko/executor --context backend/ --destination mnqwijaya/mern_todo_server:v1-${BUILD_NUMBER}
                         """
                     }
                 }
