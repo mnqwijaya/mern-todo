@@ -36,4 +36,4 @@ python3 -m http.server 8080
 ```
 
 ## Don't forget to implement the Ingress for domain setting
-
+## Check in the Ingress directory
