@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone repo') {
+            steps {
+                echo 'Clone the repo..'
+                sh 'rm -fr mern-todo'
+                sh 'git clone https://github.com/mnqwijaya/mern-todo.git'
+            }
+        }
+        stage('Deploy staging') {
+            steps {
+                echo 'Deploy to staging..'
+            }
+        }
+        stage('Push to dockerhub') {
+            steps {
+                echo 'Pushing to Dockerhub....'
+            }
+        }
+        stage('Push production') {
+            steps {
+                echo 'Pushing to production...'
+            }
+        }
+        stage('Check apps..') {
+            steps {
+                echo 'Check website is up..'
+                sh 'curl -Is frontend.k8bp.qomari.my.id | head -n 1'
+            }
+        }
+    }
+}
