@@ -32,13 +32,9 @@ jobs:
     - run: npm test
     
     - name: Build and Push Docker Image
-  steps:
-  - uses: actions/checkout@v2
-    name: Check out code
-
-  - uses: mr-smithers-excellent/docker-build-push@v5
-    name: Build & push Docker image
-    with:
+  
+    - uses: mr-smithers-excellent/docker-build-push@v5
+      with:
       image: repo/image
       tags: v1, latest
       registry: registry-url.io
