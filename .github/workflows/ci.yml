@@ -29,7 +29,7 @@ jobs:
     - run: cd backend
     - run: npm run build --if-present
         
-    - name: Build and Push Docker Image
+    - name: Build and Push Docker Image to DockerHub
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: mnqwijaya/mern-todo_server
